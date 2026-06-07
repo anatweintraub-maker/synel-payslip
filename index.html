@@ -309,7 +309,7 @@ function demoAnswer(q){
   return 'שאלה מצוינת! עם API key תקני אוכל לענות על כל שאלה חופשית.';
 }
 
-var history=[];
+var chatHistory=[];
 var busy=false;
 
 var SYSTEM='אתה סוכן שכר מומחה ואדיב של Synel Harmony. תלוש יוני 2024 של ענת וינטרוב: ברוטו 30,000₪, שווי רכב 2,470₪, מס הכנסה 4,850₪, ביטוח לאומי 1,242₪, פנסיה עובד 6%=1,800₪, נטו 19,638₪. מעסיק: פנסיה 7.5%=2,250₪, פיצויים 8.33%=2,250₪. 22 ימי חופשה, 18 מחלה. ירידה 340₪ מחודש קודם בגלל עדכון שווי רכב. ענה עברית בלבד, קצר וברור.';
@@ -362,11 +362,11 @@ function callAI(q){
   if(busy)return;
   busy=true;
   showTyping();
-  history.push({role:'user',content:q});
+  chatHistory.push({role:'user',content:q});
   
   function done(rep){
     removeTyping();
-    history.push({role:'assistant',content:rep});
+    chatHistory.push({role:'assistant',content:rep});
     addMsg(rep,'ai');
     busy=false;
   }
@@ -384,7 +384,7 @@ function callAI(q){
   fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
     headers:{'Content-Type':'application/json','x-api-key':API_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-    body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,system:SYSTEM,messages:history})
+    body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,system:SYSTEM,messages:chatHistory})
   }).then(function(res){return res.json();})
   .then(function(data){done(data.content[0].text);})
   .catch(function(){fail();});
