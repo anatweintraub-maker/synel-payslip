@@ -6,7 +6,7 @@
 <title>Synel Harmony | ענת וינטרוב</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0}html,body{overflow-x:hidden;width:100%}
 body{font-family:'Heebo',sans-serif;direction:rtl;background:#f0eeff;max-width:430px;margin:0 auto;min-height:100vh;height:100dvh}
 :root{--p:#6c5ce7;--p2:#8b7cf8;--pl:#eeedfe;--bg:#fff;--bg2:#f5f3ff;--bdr:rgba(108,92,231,0.15);--tx:#1a1730;--mt:#7b78a0;--r:13px;--rs:9px}
 
@@ -31,17 +31,17 @@ body{font-family:'Heebo',sans-serif;direction:rtl;background:#f0eeff;max-width:4
 
 /* SLIP */
 #slip{padding:14px;display:flex;flex-direction:column;gap:10px}
-.hero{background:var(--p);border-radius:var(--r);padding:18px;color:#fff;overflow:hidden}
+.hero{background:var(--p);border-radius:var(--r);padding:18px;color:#fff;overflow:hidden;width:100%}
 .hero-name{font-size:17px;font-weight:700}
 .hero-sub{font-size:12px;opacity:.8;margin-bottom:12px}
 .hero-lbl{font-size:11px;opacity:.75}
 .hero-net{font-size:32px;font-weight:700}
 .hero-chg{display:inline-flex;font-size:11px;background:rgba(255,255,255,.18);padding:3px 9px;border-radius:20px;margin-top:6px}
 .slbl{font-size:11px;color:var(--mt);text-transform:uppercase;letter-spacing:.07em;padding:2px 3px}
-.scard{background:#fff;border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden}
-.srow{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--bdr);font-size:13px;gap:8px}
+.scard{background:#fff;border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;width:100%}
+.srow{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--bdr);font-size:13px;gap:8px;width:100%;min-width:0}
 .srow:last-child{border-bottom:none}
-.srow span:first-child{color:var(--mt)}
+.srow span:first-child{color:var(--mt);flex:1;min-width:0}
 .srow span:last-child{font-weight:500;text-align:left;flex-shrink:0}
 .stotal{display:flex;justify-content:space-between;padding:10px 14px;background:var(--bg2);font-size:13px;font-weight:500;gap:8px}
 .neg{color:#c0392b}.pos{color:#0F6E56}.amb{color:#b8860b}
