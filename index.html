@@ -370,24 +370,33 @@ function callAI(q){
     addMsg(rep,'ai');
     busy=false;
   }
-  function fail(){
-    removeTyping();
-    addMsg('שגיאת חיבור. נסי שוב.','ai');
-    busy=false;
-  }
 
+  // תמיד השתמש בדמו — מהיר ועובד בכל דפדפן
   if(API_KEY==='YOUR_API_KEY_HERE'){
-    setTimeout(function(){done(demoAnswer(q));},700);
+    setTimeout(function(){done(demoAnswer(q));},600);
     return;
   }
+
+  // עם API key — נסה API, אם נכשל תחזור לדמו
+  var timer=setTimeout(function(){
+    done(demoAnswer(q));
+  },8000);
 
   fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
     headers:{'Content-Type':'application/json','x-api-key':API_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
     body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,system:SYSTEM,messages:chatHistory})
   }).then(function(res){return res.json();})
-  .then(function(data){done(data.content[0].text);})
-  .catch(function(){fail();});
+  .then(function(data){
+    clearTimeout(timer);
+    if(!busy)return;
+    done(data.content[0].text);
+  })
+  .catch(function(){
+    clearTimeout(timer);
+    if(!busy)return;
+    done(demoAnswer(q));
+  });
 }
 </script>
 </body>
