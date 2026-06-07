@@ -18,12 +18,12 @@
   --bg:#f8f8fc;--white:#fff;--border:#e8e8f0;
   --radius:14px;--radius-sm:10px;--shadow:0 2px 16px rgba(83,74,183,.08);
 }
-body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
-.app{max-width:430px;margin:0 auto;min-height:100vh;background:var(--white);position:relative;overflow:hidden;}
+body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;width:100%;}
+.app{max-width:430px;width:100%;margin:0 auto;min-height:100vh;background:var(--white);position:relative;overflow-x:hidden;}
 .screen{display:none;min-height:100vh;flex-direction:column;animation:fadeIn .25s ease;}
 .screen.active{display:flex;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.topbar{padding:52px 20px 16px;display:flex;align-items:center;justify-content:space-between;background:var(--white);}
+.topbar{padding:env(safe-area-inset-top,20px) 20px 16px;display:flex;align-items:center;justify-content:space-between;background:var(--white);}
 .brand{display:flex;align-items:center;gap:6px;}
 .brand-dot{width:22px;height:22px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;}
 .brand-dot svg{width:12px;height:12px;fill:var(--purple-light);}
@@ -198,7 +198,7 @@ h1.auth-title{font-size:22px;font-weight:600;color:var(--text);margin-bottom:6px
 
 <!-- S3: צ'אט -->
 <div class="screen" id="s3">
-  <div class="topbar" style="padding-top:52px;padding-bottom:8px;">
+  <div class="topbar" style="padding-top:env(safe-area-inset-top,20px);padding-bottom:8px;">
     <div class="brand">
       <div class="brand-dot"><svg viewBox="0 0 12 12"><path d="M6 1l1.5 3H11L8.5 6l1 3L6 7.5 2.5 9l1-3L1 4h3.5z"/></svg></div>
       <span class="brand-name">Synel</span>
@@ -236,7 +236,7 @@ h1.auth-title{font-size:22px;font-weight:600;color:var(--text);margin-bottom:6px
 
 <!-- S4: תלוש מלא -->
 <div class="screen" id="s4">
-  <div class="topbar" style="padding-top:52px;padding-bottom:8px;">
+  <div class="topbar" style="padding-top:env(safe-area-inset-top,20px);padding-bottom:8px;">
     <div class="brand">
       <div class="brand-dot"><svg viewBox="0 0 12 12"><path d="M6 1l1.5 3H11L8.5 6l1 3L6 7.5 2.5 9l1-3L1 4h3.5z"/></svg></div>
       <span class="brand-name">Synel</span>
