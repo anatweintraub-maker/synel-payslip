@@ -358,36 +358,36 @@ function showTyping(){
 
 function removeTyping(){var t=document.getElementById('typing-dot');if(t)t.remove();}
 
-async function callAI(q){
+function callAI(q){
   if(busy)return;
   busy=true;
   showTyping();
   history.push({role:'user',content:q});
-  try{
-    if(API_KEY==='YOUR_API_KEY_HERE'){
-      await new Promise(r=>setTimeout(r,700));
-      removeTyping();
-      var rep=demoAnswer(q);
-      history.push({role:'assistant',content:rep});
-      addMsg(rep,'ai');
-    } else {
-      var res=await fetch('https://api.anthropic.com/v1/messages',{
-        method:'POST',
-        headers:{'Content-Type':'application/json','x-api-key':API_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-        body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,system:SYSTEM,messages:history})
-      });
-      var data=await res.json();
-      removeTyping();
-      var rep=data.content[0].text;
-      history.push({role:'assistant',content:rep});
-      addMsg(rep,'ai');
-    }
-  }catch(e){
+  
+  function done(rep){
     removeTyping();
-    addMsg('שגיאת חיבור. נסי שוב.','ai');
-  }finally{
+    history.push({role:'assistant',content:rep});
+    addMsg(rep,'ai');
     busy=false;
   }
+  function fail(){
+    removeTyping();
+    addMsg('שגיאת חיבור. נסי שוב.','ai');
+    busy=false;
+  }
+
+  if(API_KEY==='YOUR_API_KEY_HERE'){
+    setTimeout(function(){done(demoAnswer(q));},700);
+    return;
+  }
+
+  fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':API_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,system:SYSTEM,messages:history})
+  }).then(function(res){return res.json();})
+  .then(function(data){done(data.content[0].text);})
+  .catch(function(){fail();});
 }
 </script>
 </body>
